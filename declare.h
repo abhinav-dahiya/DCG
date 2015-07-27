@@ -8,10 +8,11 @@
 #include<pthread.h>
 #include<unistd.h>
 #include<time.h>
+#include<stdlib.h>
+
 
 // define various pins for testing
 
-#define TIME_PIN RPI_BPLUS_GPIO_J8_11  //time flag
 #define PWM_PIN RPI_BPLUS_GPIO_J8_12   //pwm
 #define ENC_PIN RPI_BPLUS_GPIO_J8_38
 #define MAG_PIN RPI_BPLUS_GPIO_J8_40
@@ -35,15 +36,20 @@
 #define D6 RPI_BPLUS_GPIO_J8_24
 #define D7 RPI_BPLUS_GPIO_J8_35
 
+#define OE_SHIFTER RPI_BPLUS_GPIO_J8_07
+#define MOTOR_D3 RPI_BPLUS_GPIO_J8_08
+#define RST_COUNT RPI_BPLUS_GPIO_J8_11
+
 
 extern int encoder_flag	  ;		  // set when encoder calculation done
 extern int magnet_flag 	  ;		  // set when magnet calculation done
 extern double dT_PD       ;        // sampling time for PD loop in seconds
 extern double dT_XD    	  ;        // sampling time for xd loop in seconds
-extern double dT_EN    	  ;
+extern double dT_PO    	  ;		   // sampling time for power loop in seconds
+extern int start		  ;		  // flag for starting the motor and other threads
 extern int sample_encoder ;		  // flag for sampling encoder
 extern int sample_magnet  ;		  // flag for sampling magnetic sensor
-extern int sample_energy  ;
+extern int sample_energy  ;		  // flag for sampling power
 extern float x            ;		  // position
 extern float xf 		  ;		  // filtered value of position
 extern float xd           ;		  // desired value of position
@@ -53,7 +59,9 @@ extern float kp           ;		  // kp for PD loop
 extern float kd           ;		  // kd for PD loop
 extern float I_range      ;		  // for calculating PWM value
 extern float power 		  ;		  // instantaneous power measured by IC
-
+extern float energy		  ;
+extern double freq_diff   ;		  // differentiator cut-off frequency
+extern float freq_filt	  ;
 
 #endif
 
