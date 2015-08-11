@@ -3,7 +3,7 @@
 
 #include<stdio.h>
 
-float calculate_I_ref(void);
+void calculate_I_ref(void);
 
 #endif
 

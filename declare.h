@@ -20,7 +20,7 @@
 #define PWM_CHANNEL 0
 #define RANGE 1024		 // pwm range = (0-1024)
 #define BILLION 1E9
-
+#define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
 
 // defining pins for quadrature decoder (encoder counter)
 
@@ -35,6 +35,8 @@
 #define D5 RPI_BPLUS_GPIO_J8_26
 #define D6 RPI_BPLUS_GPIO_J8_24
 #define D7 RPI_BPLUS_GPIO_J8_35
+
+#define PA0 RPI_BPLUS_GPIO_J8_15
 
 #define OE_SHIFTER RPI_BPLUS_GPIO_J8_07
 #define MOTOR_D3 RPI_BPLUS_GPIO_J8_08

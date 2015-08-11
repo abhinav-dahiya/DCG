@@ -4,12 +4,14 @@
 
 void calculate_I_ref(void)
 {	
+	while(start == 0)
+	{}
+	
 	while(1)
 	{
 		if(encoder_flag) // encoder flag = 1 means xf and dx are calculated
 		{
 			//calculate I_ref and convert to pwm value
-			printf("I_ref: kp and kd are: %f, %f\n", kp, kd);
 		I_ref = (float)((kp)*(xd - xf)) - (kd)*(dx);
 		//	I_range = 2;     // for range -2 to +2, set during motor controller setup
 		
@@ -25,7 +27,7 @@ void calculate_I_ref(void)
 		
 		bcm2835_pwm_set_data(PWM_CHANNEL, pwm_value);
 	
-//		printf("Xf = %f\n", xf);
+//		printf("i_ref: X, Xf and Xd = %f,  %f,  %f\n", x, xf, xd);
 		//reset flag
 		encoder_flag = 0;
 		}

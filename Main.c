@@ -42,6 +42,10 @@ int main(int argc, char *argv[])
 	bcm2835_gpio_fsel(MOTOR_D3, BCM2835_GPIO_FSEL_OUTP);
 	bcm2835_gpio_set_pud(MOTOR_D3, BCM2835_GPIO_PUD_DOWN); //pull-down for motor enable
 	
+	bcm2835_gpio_fsel(PA0, BCM2835_GPIO_FSEL_OUTP);
+	bcm2835_gpio_set_pud(PA0, BCM2835_GPIO_PUD_UP);
+	bcm2835_gpio_write(PA0, HIGH);
+	
 	bcm2835_gpio_write(OE_SHIFTER, HIGH);
 	bcm2835_gpio_write(MOTOR_D3, LOW);
 	
@@ -55,17 +59,19 @@ int main(int argc, char *argv[])
 	pthread_create(&th6, NULL, (void*)calculate_energy, NULL);
 	pthread_create(&th7, NULL, (void*)calculate_I_ref, NULL);
 	
-	
-	bcm2835_delay(50);
+	bcm2835_delay(100); // delay to make sure that all threads are initialised and iC-MU is conofigured
 	printf("\nPress enter to start the motor.");
 	getchar(); 
 	bcm2835_gpio_write(MOTOR_D3, HIGH);
+	
 	start = 1;
 	printf("Started.\n");
 
 	printf("\nPress enter to stop the motor.\n");
 	getchar();
 	bcm2835_gpio_write(MOTOR_D3, LOW);
+	
+	bcm2835_spi_end();
 	bcm2835_close();
 	
 	

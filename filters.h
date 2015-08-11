@@ -1,9 +1,9 @@
 #ifndef FILT_H
 #define FILT_H
 
-float discrete_diff(float x, double dT, int freq);
-float low_pass_filter(float x, double dT, int freq);
-float discrete_intg(float x, double dT);
+void discrete_diff(void);
+void low_pass_filter(void);
+void discrete_intg(void);
 
 #endif
 
